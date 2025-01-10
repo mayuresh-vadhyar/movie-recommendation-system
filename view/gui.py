@@ -5,21 +5,21 @@ class GUI:
     def __init__(self):
         self.buildGUI()
 
-    def displayRecommendations(self):
-        for widget in bottomFrame.winfo_children():
+    def displayRecommendations(self, cbf):
+        for widget in self.bottomFrame.winfo_children():
             widget.destroy()
         
-        movie = entry1.get()
+        movie = self.entry1.get()
         if not movie:
             messagebox.showerror("Invalid Choice", "Please enter a valid movie name")
             return
 
-        recommended_movies = getList(movie, df)
+        recommended_movies = cbf.getList(movie)
         if not recommended_movies:
             return
 
         for item in recommended_movies:
-            Label(bottomFrame, text=item, fg="#383127", bg="#E4DBBF").pack(side=TOP, fill=X)
+            Label(self.bottomFrame, text=item, fg="#383127", bg="#E4DBBF").pack(side=TOP, fill=X)
 
     def buildGUI(self):
         # Set up GUI
@@ -30,12 +30,12 @@ class GUI:
         topFrame.pack(fill=X)
         Label(topFrame, text="Movie Recommendation System", fg="#000000", bg="#f5c518", font=("Roboto", 24, "bold")).pack(fill=X)
 
-        bottomFrame = Frame(root)
-        bottomFrame.pack(side=BOTTOM, fill=X)
+        self.bottomFrame = Frame(root)
+        self.bottomFrame.pack(side=BOTTOM, fill=X)
 
         Label(root, text="Enter a movie you like: ").pack(side=LEFT)
-        entry1 = Entry(root, width=30)
-        entry1.pack(side=LEFT)
+        self.entry1 = Entry(root, width=30)
+        self.entry1.pack(side=LEFT)
 
         Button(root, text="Get recommendations", command=self.displayRecommendations).pack(side=BOTTOM)
 
