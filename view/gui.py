@@ -15,23 +15,25 @@ class GUI:
             
             movie = self.entry1.get()
             if not movie:
-                messagebox.showerror("Invalid Choice", "Please enter a valid movie name")
-                return
+                raise CustomException("MOVIE_NOT_FOUND")
             
             movieIndex = cbf.getIndexFromTitle(movie)
             recommended_movies = cbf.getRecommendedMovies(movieIndex)
             if not recommended_movies:
-                return
+                raise CustomException("NO_SIMILAR_MOVIES")
 
             for item in recommended_movies:
                 Label(self.bottomFrame, text=item, fg="#383127", bg="#E4DBBF").pack(side=TOP, fill=X)
         except CustomException as E:
             if (E.message == "MOVIE_NOT_FOUND"):
-                messagebox.showerror("Movie does not exist", "No such movie exists. Please enter a valid name.")
+                messagebox.showerror("Movie does not exist", "No such movie exists. Please enter a valid movie name.")
+            elif (E.message == "NO_SIMILAR_MOVIES"):
+                messagebox.showerror("No similar movies", "Please try another movie")
+            else:
+                messagebox.showerror(E.error_code, E.message)
 
 
     def buildGUI(self):
-        # Set up GUI
         root = Tk()
         root.title("Movie Recommendation System")
 
