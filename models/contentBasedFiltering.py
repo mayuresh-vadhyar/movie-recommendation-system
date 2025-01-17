@@ -6,14 +6,15 @@ from fuzzywuzzy import fuzz, process
 class contentBasedFiltering:
     def __init__(self):
         # Load data and preprocess
+        print('called contentBasedFiltering')
         df = pd.read_csv("movie_dataset.xls")
         features = ['keywords', 'cast', 'genres', 'director']
         df[features] = df[features].fillna('')
-        df["combined_features"] = self.df.apply(combineFeatures, axis=1)
+        df["combined_features"] = df.apply(self.combineFeatures, axis=1)
 
         # Precompute cosine similarity
         cv = CountVectorizer()
-        count_matrix = cv.fit_transform(self.df["combined_features"])
+        count_matrix = cv.fit_transform(df["combined_features"])
         self.cosine_sim = cosine_similarity(count_matrix)
         self.df = df
 
@@ -21,12 +22,12 @@ class contentBasedFiltering:
         return " ".join([row['keywords'], row['cast'], row['genres'], row['director']])
 
     def getList(self, movie_user_likes):
-        movie_index = self.getIndexFromTitle(movie_user_likes, self.df)
+        movie_index = self.getIndexFromTitle(movie_user_likes)
         if movie_index == -1:
             return []
         similar_movies = list(enumerate(self.cosine_sim[movie_index]))
         sorted_similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
-        return [self.getTitleFromIndex(element[0], self.df) for element in sorted_similar_movies[:20]]
+        return [self.getTitleFromIndex(element[0]) for element in sorted_similar_movies[:20]]
 
     
     def getTitleFromIndex(self, index):
