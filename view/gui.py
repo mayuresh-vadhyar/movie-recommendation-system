@@ -1,11 +1,14 @@
 from tkinter import *
 from tkinter import messagebox
+from models import contentBasedFiltering
 
 class GUI:
     def __init__(self):
+        print('started')
         self.buildGUI()
 
-    def displayRecommendations(self, cbf):
+    def displayRecommendations(self):
+        cbf = contentBasedFiltering.contentBasedFiltering()
         for widget in self.bottomFrame.winfo_children():
             widget.destroy()
         
