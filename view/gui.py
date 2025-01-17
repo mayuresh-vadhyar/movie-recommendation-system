@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from models import contentBasedFiltering
+from models import CustomException, contentBasedFiltering
 
 class GUI:
     def __init__(self):
@@ -8,21 +8,27 @@ class GUI:
         self.buildGUI()
 
     def displayRecommendations(self):
-        cbf = contentBasedFiltering.contentBasedFiltering()
-        for widget in self.bottomFrame.winfo_children():
-            widget.destroy()
-        
-        movie = self.entry1.get()
-        if not movie:
-            messagebox.showerror("Invalid Choice", "Please enter a valid movie name")
-            return
+        try:
+            cbf = contentBasedFiltering.ContentBasedFiltering()
+            for widget in self.bottomFrame.winfo_children():
+                widget.destroy()
+            
+            movie = self.entry1.get()
+            if not movie:
+                messagebox.showerror("Invalid Choice", "Please enter a valid movie name")
+                return
+            
+            movieIndex = cbf.getIndexFromTitle(movie)
+            recommended_movies = cbf.getRecommendedMovies(movieIndex)
+            if not recommended_movies:
+                return
 
-        recommended_movies = cbf.getList(movie)
-        if not recommended_movies:
-            return
+            for item in recommended_movies:
+                Label(self.bottomFrame, text=item, fg="#383127", bg="#E4DBBF").pack(side=TOP, fill=X)
+        except CustomException as E:
+            if (E.message == "MOVIE_NOT_FOUND"):
+                messagebox.showerror("Movie does not exist", "No such movie exists. Please enter a valid name.")
 
-        for item in recommended_movies:
-            Label(self.bottomFrame, text=item, fg="#383127", bg="#E4DBBF").pack(side=TOP, fill=X)
 
     def buildGUI(self):
         # Set up GUI
