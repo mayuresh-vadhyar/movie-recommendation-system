@@ -5,7 +5,7 @@ class CustomException(Exception):
         message -- explanation of the error
     """
 
-    def __init__(self, message, error_code):
+    def __init__(self, message, error_code = 500):
         super().__init__(message)
         self.message = message
         self.error_code = error_code

@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from fuzzywuzzy import fuzz, process
-from models import CustomException
+from models.CustomException import CustomException
 
 MINIMUM_THRESHOLD = 70
 RECOMMENDED_MOVIES_COUNT = 20
@@ -36,8 +36,11 @@ class ContentBasedFiltering:
     def getIndexFromTitle(self, title):
             titles = self.df['title'].tolist()
             closest_match = process.extractOne(title, titles, scorer=fuzz.token_sort_ratio)
-            
-            if len(closest_match) < 1 and closest_match[1] < MINIMUM_THRESHOLD:
+
+            if len(closest_match) < 1:
+                raise CustomException("MOVIE_NOT_FOUND")
+
+            if closest_match[1] < MINIMUM_THRESHOLD:
                 raise CustomException("MOVIE_NOT_FOUND")
             
             return self.df[self.df.title == closest_match[0]]["index"].values[0]

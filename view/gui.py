@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-from models import CustomException, contentBasedFiltering
+from models import contentBasedFiltering
+from models.CustomException import CustomException
 
 class GUI:
     def __init__(self):
