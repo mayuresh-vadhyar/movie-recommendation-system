@@ -1,0 +1,14 @@
+from typing import Final
+
+class COLUMN_NAMES:
+    TITLE = 'title'
+    KEYWORDS = 'keywords'
+    CAST = 'cast'
+    GENRES = 'genres'
+    DIRECTOR = 'director'
+    FEATURES = 'features'
+
+class CONTENT_BASED_FILTERING:
+    RECOMMENDED_MOVIES_COUNT= 20
+    MINIMUM_THRESHOLD = 70
+    FILTER_COLUMNS = [COLUMN_NAMES.KEYWORDS, COLUMN_NAMES.CAST, COLUMN_NAMES.GENRES, COLUMN_NAMES.DIRECTOR]
