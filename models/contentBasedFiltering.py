@@ -8,20 +8,28 @@ from models.CustomException import CustomException
 
 
 class ContentBasedFiltering:
-    # TODO: Make Singleton
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+
     def __init__(self):
         # Load data and preprocess
-        print('called contentBasedFiltering')
-        df = pd.read_csv("movie_dataset.xls")
-        features = constants.FILTER_COLUMNS
-        df[features] = df[features].fillna('')
-        df[columns.FEATURES] = df.apply(self.combineFeatures, axis=1)
+        if not self._initialized:
+            df = pd.read_csv("movie_dataset.xls")
+            features = constants.FILTER_COLUMNS
+            df[features] = df[features].fillna('')
+            df[columns.FEATURES] = df.apply(self.combineFeatures, axis=1)
 
-        # Precompute cosine similarity
-        cv = CountVectorizer()
-        count_matrix = cv.fit_transform(df[columns.FEATURES])
-        self.cosine_sim = cosine_similarity(count_matrix)
-        self.df = df
+            # Precompute cosine similarity
+            cv = CountVectorizer()
+            count_matrix = cv.fit_transform(df[columns.FEATURES])
+            self.cosine_sim = cosine_similarity(count_matrix)
+            self.df = df
+            self._initialized = True
 
     def combineFeatures(self, row):
         return " ".join([row[column] for column in constants.FILTER_COLUMNS])
