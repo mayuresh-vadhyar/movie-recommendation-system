@@ -24,7 +24,7 @@ class ContentBasedFiltering:
         self.df = df
 
     def combineFeatures(self, row):
-        return " ".join([row[columns.KEYWORDS], row[columns.CAST], row[columns.GENRES], row[columns.DIRECTOR]])
+        return " ".join([row[column] for column in constants.FILTER_COLUMNS])
 
     def getRecommendedMovies(self, movieIndex):
         similar_movies = list(enumerate(self.cosine_sim[movieIndex]))
