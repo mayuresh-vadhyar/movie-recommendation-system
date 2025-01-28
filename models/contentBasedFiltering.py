@@ -4,6 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from fuzzywuzzy import fuzz, process
 from constants import CONTENT_BASED_FILTERING as constants
 from constants import COLUMN_NAMES as columns
+from constants import ERRORS as errors
 from models.CustomException import CustomException
 
 
@@ -47,10 +48,10 @@ class ContentBasedFiltering:
             closest_match = process.extractOne(title, titles, scorer=fuzz.token_sort_ratio)
 
             if len(closest_match) < 1:
-                raise CustomException("MOVIE_NOT_FOUND")
+                raise CustomException(errors.MOVIE_NOT_FOUND)
 
             if closest_match[1] < constants.MINIMUM_THRESHOLD:
-                raise CustomException("MOVIE_NOT_FOUND")
+                raise CustomException(errors.MOVIE_NOT_FOUND)
             
             return self.df[self.df.title == closest_match[0]]["index"].values[0]
 
