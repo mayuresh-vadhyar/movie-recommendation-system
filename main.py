@@ -1,4 +1,4 @@
-from view.GUI import GUI
+from view.gui import GUI
 from models.contentBasedFiltering import ContentBasedFiltering
 
 cbf = ContentBasedFiltering()

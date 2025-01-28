@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from models import contentBasedFiltering
+from models import DataFrame, contentBasedFiltering
 from models.CustomException import CustomException
 from constants import ERRORS as errors
 
@@ -19,7 +19,7 @@ class GUI:
             if not movie:
                 raise CustomException(errors.MOVIE_NOT_FOUND)
             
-            movieIndex = cbf.getIndexFromTitle(movie)
+            movieIndex = DataFrame.DataFrame().getIndexOfClosestTitle(movie)
             recommended_movies = cbf.getRecommendedMovies(movieIndex)
             if not recommended_movies:
                 raise CustomException(errors.NO_SIMILAR_MOVIES)
