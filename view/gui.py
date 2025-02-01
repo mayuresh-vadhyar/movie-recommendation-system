@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-from models import DataFrame, contentBasedFiltering
+from models.DataFrame import DataFrame
+from models.ContentBasedFiltering import ContentBasedFiltering
 from models.CustomException import CustomException
 from constants import ERRORS as errors
 
@@ -11,7 +12,7 @@ class GUI:
 
     def displayRecommendations(self):
         try:
-            cbf = contentBasedFiltering.ContentBasedFiltering()
+            cbf = ContentBasedFiltering()
             for widget in self.bottomFrame.winfo_children():
                 widget.destroy()
             
@@ -19,7 +20,7 @@ class GUI:
             if not movie:
                 raise CustomException(errors.MOVIE_NOT_FOUND)
             
-            movieIndex = DataFrame.DataFrame().getIndexOfClosestTitle(movie)
+            movieIndex = DataFrame().getIndexOfClosestTitle(movie)
             recommended_movies = cbf.getRecommendedMovies(movieIndex)
             if not recommended_movies:
                 raise CustomException(errors.NO_SIMILAR_MOVIES)

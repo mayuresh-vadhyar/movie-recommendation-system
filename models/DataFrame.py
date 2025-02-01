@@ -45,4 +45,4 @@ class DataFrame():
             if closest_match[1] < constants.MINIMUM_THRESHOLD:
                 raise CustomException(errors.MOVIE_NOT_FOUND)
             
-            return self._df[self._df.title == closest_match[0]]["index"].values[0]
+            return self._df[self._df[columns.TITLE] == closest_match[0]]["index"].values[0]

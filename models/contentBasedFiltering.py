@@ -1,9 +1,8 @@
-import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from models.DataFrame import DataFrame
 from constants import CONTENT_BASED_FILTERING as constants
 from constants import COLUMN_NAMES as columns
-from models.DataFrame import DataFrame
 
 
 class ContentBasedFiltering:
