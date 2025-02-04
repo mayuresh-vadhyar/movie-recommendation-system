@@ -4,7 +4,6 @@ from models.DataFrame import DataFrame
 from constants import CONTENT_BASED_FILTERING as constants
 from constants import COLUMN_NAMES as columns
 
-
 class ContentBasedFiltering:
     _instance = None
 
@@ -17,11 +16,10 @@ class ContentBasedFiltering:
     def __init__(self):
         if not self._initialized:
             # Precompute cosine similarity
-            df = DataFrame()
+            self.df = DataFrame()
             cv = CountVectorizer()
-            count_matrix = cv.fit_transform(df.getByColumn(columns.FEATURES))
+            count_matrix = cv.fit_transform(self.df.getByColumn(columns.FEATURES))
             self.cosine_sim = cosine_similarity(count_matrix)
-            self.df = df
             self._initialized = True
 
     def getRecommendedMovies(self, movieIndex):
