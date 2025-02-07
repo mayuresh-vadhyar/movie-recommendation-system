@@ -14,7 +14,7 @@ class DataFrame():
             cls._instance = super().__new__(cls)
             cls._instance._initialized = False
         return cls._instance
-    
+
     def __init__(self):
         # Load data and preprocess
         if not self._initialized:
@@ -31,18 +31,21 @@ class DataFrame():
 
     def getTitleFromIndex(self, index):
         return self._df.iloc[index][columns.TITLE]
-    
+
     def getByColumn(self, title):
         return self._df[title]
-    
+
+    def getIndexFromTitle(self, title):
+        return self._df[self._df[columns.TITLE] == title]["index"].values[0]
+
     def getIndexOfClosestTitle(self, title):
-            titles = self._df[columns.TITLE].tolist()
-            closest_match = process.extractOne(title, titles, scorer=fuzz.token_sort_ratio)
+        titles = self._df[columns.TITLE].tolist()
+        closest_match = process.extractOne(title, titles, scorer=fuzz.token_sort_ratio)
 
-            if len(closest_match) < 1:
-                raise CustomException(errors.MOVIE_NOT_FOUND)
+        if len(closest_match) < 1:
+            raise CustomException(errors.MOVIE_NOT_FOUND)
 
-            if closest_match[1] < constants.MINIMUM_THRESHOLD:
-                raise CustomException(errors.MOVIE_NOT_FOUND)
-            
-            return self._df[self._df[columns.TITLE] == closest_match[0]]["index"].values[0]
+        if closest_match[1] < constants.MINIMUM_THRESHOLD:
+            raise CustomException(errors.MOVIE_NOT_FOUND)
+        
+        return self._df[self._df[columns.TITLE] == closest_match[0]]["index"].values[0]
