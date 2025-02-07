@@ -1,5 +1,5 @@
 from view.gui import GUI
-from models.contentBasedFiltering import ContentBasedFiltering
+from models.ContentBasedFiltering import ContentBasedFiltering
 
 cbf = ContentBasedFiltering()
 gui = GUI()
