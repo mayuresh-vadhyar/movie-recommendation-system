@@ -1,5 +1,3 @@
-from typing import Final
-
 class COLUMN_NAMES:
     TITLE = 'title'
     KEYWORDS = 'keywords'
@@ -16,3 +14,10 @@ class CONTENT_BASED_FILTERING:
 class ERRORS:
     MOVIE_NOT_FOUND = 'MOVIE_NOT_FOUND'
     NO_SIMILAR_MOVIES = 'NO_SIMILAR_MOVIES'
+
+class GUI:
+    TITLE_FG = '#000000'
+    TITLE_BG = '#f5c518'
+    TITLE_FONT = ("Roboto", 24, "bold")
+    MOVIE_ITEM_FG = '#383127'
+    MOVIE_ITEM_BG = '#E4DBBF'

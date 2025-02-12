@@ -4,11 +4,12 @@ from models.DataFrame import DataFrame
 from models.ContentBasedFiltering import ContentBasedFiltering
 from models.CustomException import CustomException
 from constants import ERRORS as errors
+from constants import GUI as constants
 
 class GUI:
     def __init__(self):
-        print('started')
         self.buildGUI()
+        print('started')
 
     def displayRecommendations(self):
         try:
@@ -26,7 +27,7 @@ class GUI:
                 raise CustomException(errors.NO_SIMILAR_MOVIES)
 
             for item in recommended_movies:
-                Label(self.bottomFrame, text=item, fg="#383127", bg="#E4DBBF").pack(side=TOP, fill=X)
+                Label(self.bottomFrame, text=item, fg=constants.MOVIE_ITEM_FG, bg=constants.MOVIE_ITEM_BG).pack(side=TOP, fill=X)
         except CustomException as E:
             if (E.message == errors.MOVIE_NOT_FOUND):
                 messagebox.showerror("Movie does not exist", "No such movie exists. Please enter a valid movie name.")
@@ -42,7 +43,7 @@ class GUI:
 
         topFrame = Frame(root)
         topFrame.pack(fill=X)
-        Label(topFrame, text="Movie Recommendation System", fg="#000000", bg="#f5c518", font=("Roboto", 24, "bold")).pack(fill=X)
+        Label(topFrame, text="Movie Recommendation System", fg=constants.TITLE_FG, bg=constants.TITLE_BG, font=constants.TITLE_FONT).pack(fill=X)
 
         self.bottomFrame = Frame(root)
         self.bottomFrame.pack(side=BOTTOM, fill=X)
