@@ -18,7 +18,7 @@ class DataFrame():
     def __init__(self):
         # Load data and preprocess
         if not self._initialized:
-            df = pd.read_csv("movie_dataset.xls")
+            df = pd.read_csv(constants.FILE_NAME)
             features = constants.FILTER_COLUMNS
             df[features] = df[features].fillna('')
             df[columns.FEATURES] = df.apply(self.combineFeatures, axis=1)
