@@ -3,13 +3,14 @@ from tkinter import messagebox
 from models.DataFrame import DataFrame
 from models.ContentBasedFiltering import ContentBasedFiltering
 from models.CustomException import CustomException
+from view.Translator import getString
 from constants import ERRORS as errors
 from constants import GUI as constants
 
 class GUI:
     def __init__(self):
-        self.buildGUI()
         print('started')
+        self.buildGUI()
 
     def displayRecommendations(self):
         try:
@@ -39,7 +40,7 @@ class GUI:
 
     def buildGUI(self):
         root = Tk()
-        root.title("Movie Recommendation System")
+        root.title(getString('windowTitle'))
 
         topFrame = Frame(root)
         topFrame.pack(fill=X)
