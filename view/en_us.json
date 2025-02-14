@@ -1,3 +1,9 @@
 {
-    "windowTitle": "Movie Recommendation System"
+    "windowTitle": "Movie Recommendation System",
+    "submitButton": "Get recommendations",
+    "movieNamePrompt": "Enter a movie name: ",
+    "MOVIE_NOT_FOUND_TITLE": "Movie does not exist",
+    "MOVIE_NOT_FOUND_MESSAGE": "No such movie exists. Please enter a valid movie name.",
+    "NO_SIMILAR_MOVIES_TITLE": "No similar movies",
+    "NO_SIMILAR_MOVIES_MESSAGE": "Please try another movie"
 }

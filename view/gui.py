@@ -31,9 +31,9 @@ class GUI:
                 Label(self.bottomFrame, text=item, fg=constants.MOVIE_ITEM_FG, bg=constants.MOVIE_ITEM_BG).pack(side=TOP, fill=X)
         except CustomException as E:
             if (E.message == errors.MOVIE_NOT_FOUND):
-                messagebox.showerror("Movie does not exist", "No such movie exists. Please enter a valid movie name.")
+                messagebox.showerror(getString('MOVIE_NOT_FOUND_TITLE'), getString('MOVIE_NOT_FOUND_MESSAGE'))
             elif (E.message == errors.NO_SIMILAR_MOVIES):
-                messagebox.showerror("No similar movies", "Please try another movie")
+                messagebox.showerror(getString('NO_SIMILAR_MOVIES_TITLE'), getString('NO_SIMILAR_MOVIES_MESSAGE'))
             else:
                 messagebox.showerror(E.error_code, E.message)
 
@@ -44,15 +44,15 @@ class GUI:
 
         topFrame = Frame(root)
         topFrame.pack(fill=X)
-        Label(topFrame, text="Movie Recommendation System", fg=constants.TITLE_FG, bg=constants.TITLE_BG, font=constants.TITLE_FONT).pack(fill=X)
+        Label(topFrame, text=getString('windowTitle'), fg=constants.TITLE_FG, bg=constants.TITLE_BG, font=constants.TITLE_FONT).pack(fill=X)
 
         self.bottomFrame = Frame(root)
         self.bottomFrame.pack(side=BOTTOM, fill=X)
 
-        Label(root, text="Enter a movie you like: ").pack(side=LEFT)
+        Label(root, text=getString('movieNamePrompt')).pack(side=LEFT)
         self.entry1 = Entry(root, width=30)
         self.entry1.pack(side=LEFT)
 
-        Button(root, text="Get recommendations", command=self.displayRecommendations).pack(side=BOTTOM)
+        Button(root, text=getString('submitButton'), command=self.displayRecommendations).pack(side=BOTTOM)
 
         root.mainloop()
