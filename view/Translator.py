@@ -1,13 +1,12 @@
 import json
 import os
-
-LANG_FILE = "./view/en_us.json"
+from constants import GUI as constants
 
 def loadStrings():
-    if not os.path.exists(LANG_FILE):
-        raise FileNotFoundError(f"Language file {LANG_FILE} not found.")
+    if not os.path.exists(constants.LANG_FILE):
+        raise FileNotFoundError(f"Language file {constants.LANG_FILE} not found.")
 
-    with open(LANG_FILE, "r", encoding="utf-8") as f:
+    with open(constants.LANG_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
 _strings = loadStrings()

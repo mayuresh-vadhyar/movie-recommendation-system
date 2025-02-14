@@ -17,6 +17,7 @@ class ERRORS:
     NO_SIMILAR_MOVIES = 'NO_SIMILAR_MOVIES'
 
 class GUI:
+    LANG_FILE = "./view/en_us.json"
     TITLE_FG = '#000000'
     TITLE_BG = '#f5c518'
     TITLE_FONT = ("Roboto", 24, "bold")
