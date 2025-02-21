@@ -26,7 +26,10 @@ def getMovieIndexByClosestTitle():
 
 @app.route('/movies/recommendations/<movieIndex>', methods=['GET'])
 def getRecommendedMoviesByIndex(movieIndex):
-  result = cbf.getRecommendedMovies(int(movieIndex))
-  return jsonify({'result': result})
+  try:
+    response = cbf.getRecommendedMovies(int(movieIndex))
+    return jsonify({'result': 'success', 'data': response})
+  except Exception as E:
+    return jsonify({'result': 'failure', 'error': str(E)})
 
 app.run()
