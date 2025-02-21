@@ -17,7 +17,12 @@ def getMovieIndexByTitle():
 
 @app.route('/movies/closest-index', methods=['GET'])
 def getMovieIndexByClosestTitle():
-  return jsonify({'result': 'success'})
+  try:
+    title = request.args.get('title')
+    response = str(df.getIndexOfClosestTitle(title))
+    return jsonify({'result': 'success', 'response': response})
+  except Exception as E:
+    return jsonify({'result': 'failure', 'error': str(E)})
 
 @app.route('/movies/recommendations/<movieIndex>', methods=['GET'])
 def getRecommendedMoviesByIndex(movieIndex):
