@@ -32,4 +32,14 @@ def getRecommendedMoviesByIndex(movieIndex):
   except Exception as E:
     return jsonify({'result': 'failure', 'error': str(E)})
 
+@app.route('/movies/recommendations', methods=['GET'])
+def getRecommendedMovies():
+  try:
+    title = request.args.get('title')
+    movieIndex = df.getIndexOfClosestTitle(title)
+    response = cbf.getRecommendedMovies(int(movieIndex))
+    return jsonify({'result': 'success', 'data': response})
+  except Exception as E:
+    return jsonify({'result': 'failure', 'error': str(E)})
+
 app.run()
