@@ -36,8 +36,10 @@ def getRecommendedMoviesByIndex(movieIndex):
 def getRecommendedMovies():
   try:
     title = request.args.get('title')
+    pageSize = request.args.get('pageSize')
+    pageNo = request.args.get('pageNo')
     movieIndex = df.getIndexOfClosestTitle(title)
-    response = cbf.getRecommendedMovies(int(movieIndex))
+    response = cbf.getRecommendedMovies(int(movieIndex), pageSize, pageNo)
     return jsonify({'result': 'success', 'data': response})
   except Exception as E:
     return jsonify({'result': 'failure', 'error': str(E)})
