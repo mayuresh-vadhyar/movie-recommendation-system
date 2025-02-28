@@ -22,10 +22,7 @@ class ContentBasedFiltering:
             self.cosine_sim = cosine_similarity(count_matrix)
             self._initialized = True
 
-    def getRecommendedMovies(self, movieIndex):
+    def getRecommendedMovies(self, movieIndex, pageSize, pageNo = 1):
         similar_movies = list(enumerate(self.cosine_sim[movieIndex]))
         sorted_similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
         return [self.df.getTitleFromIndex(element[0]) for element in sorted_similar_movies[:constants.RECOMMENDED_MOVIES_COUNT]]
-
-
-
