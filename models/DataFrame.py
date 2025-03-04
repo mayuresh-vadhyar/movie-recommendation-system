@@ -39,6 +39,9 @@ class DataFrame():
         return self._df[self._df[columns.TITLE] == title]["index"].values[0]
 
     def getIndexOfClosestTitle(self, title):
+        if not title:
+            raise CustomException(errors.MOVIE_NOT_FOUND)
+
         titles = self._df[columns.TITLE].tolist()
         closest_match = process.extractOne(title, titles, scorer=fuzz.token_sort_ratio)
 
