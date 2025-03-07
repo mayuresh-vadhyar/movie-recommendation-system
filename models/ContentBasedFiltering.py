@@ -26,7 +26,7 @@ class ContentBasedFiltering:
 
     def getRecommendedMovies(self, movieIndex, pageSize = 0, pageNo = 1):
         if movieIndex < 0 or movieIndex >= len(self.cosine_sim):
-            raise CustomException(errors.INVALID_INDEX)
+            raise CustomException(errors.INVALID_INDEX, 400)
 
         pageSize = pageSize or constants.RECOMMENDED_MOVIES_COUNT
         start = (pageNo - 1) * pageSize

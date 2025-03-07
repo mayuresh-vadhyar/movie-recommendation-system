@@ -13,7 +13,9 @@ def getMovieIndexByTitle():
     response = str(df.getIndexFromTitle(title))
     return jsonify({'result': 'success', 'response': response})
   except Exception as E:
-    return jsonify({'result': 'failure', 'error': str(E)})
+    statusCode = getattr(E, 'error_code', 500)
+    errorMessage = getattr(E, 'message', str(E))
+    return jsonify({'result': 'failure', 'error': errorMessage}), statusCode
 
 @app.route('/movies/closest-index', methods=['GET'])
 def getMovieIndexByClosestTitle():
@@ -22,7 +24,9 @@ def getMovieIndexByClosestTitle():
     response = str(df.getIndexOfClosestTitle(title))
     return jsonify({'result': 'success', 'response': response})
   except Exception as E:
-    return jsonify({'result': 'failure', 'error': str(E)})
+    statusCode = getattr(E, 'error_code', 500)
+    errorMessage = getattr(E, 'message', str(E))
+    return jsonify({'result': 'failure', 'error': errorMessage}), statusCode
 
 @app.route('/movies/recommendations/<movieIndex>', methods=['GET'])
 def getRecommendedMoviesByIndex(movieIndex):
@@ -30,7 +34,9 @@ def getRecommendedMoviesByIndex(movieIndex):
     response = cbf.getRecommendedMovies(int(movieIndex))
     return jsonify({'result': 'success', 'data': response})
   except Exception as E:
-    return jsonify({'result': 'failure', 'error': str(E)})
+    statusCode = getattr(E, 'error_code', 500)
+    errorMessage = getattr(E, 'message', str(E))
+    return jsonify({'result': 'failure', 'error': errorMessage}), statusCode
 
 @app.route('/movies/recommendations', methods=['GET'])
 def getRecommendedMovies():
@@ -42,6 +48,8 @@ def getRecommendedMovies():
     response = cbf.getRecommendedMovies(int(movieIndex), int(pageSize), int(pageNo))
     return jsonify({'result': 'success', 'data': response})
   except Exception as E:
-    return jsonify({'result': 'failure', 'error': str(E)})
+    statusCode = getattr(E, 'error_code', 500)
+    errorMessage = getattr(E, 'message', str(E))
+    return jsonify({'result': 'failure', 'error': errorMessage}), statusCode
 
 app.run()
