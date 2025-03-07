@@ -1,5 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from models.CustomException import CustomException
+from constants import ERRORS as errors
 from models.DataFrame import DataFrame
 from constants import CONTENT_BASED_FILTERING as constants
 from constants import COLUMN_NAMES as columns
@@ -22,7 +24,10 @@ class ContentBasedFiltering:
             self.cosine_sim = cosine_similarity(count_matrix)
             self._initialized = True
 
-    def getRecommendedMovies(self, movieIndex, pageSize, pageNo = 1):
+    def getRecommendedMovies(self, movieIndex, pageSize = 0, pageNo = 1):
+        if movieIndex < 0 or movieIndex >= len(self.cosine_sim):
+            raise CustomException(errors.INVALID_INDEX)
+
         pageSize = pageSize or constants.RECOMMENDED_MOVIES_COUNT
         start = (pageNo - 1) * pageSize
         end = start + pageSize
