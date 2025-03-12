@@ -20,7 +20,7 @@ class GUI:
             
             movie = self.entry1.get()
             if not movie:
-                raise CustomException(errors.MOVIE_NOT_FOUND)
+                raise CustomException(errors.MOVIE_NOT_FOUND, 404)
             
             movieIndex = DataFrame().getIndexOfClosestTitle(movie)
             recommended_movies = cbf.getRecommendedMovies(movieIndex)
@@ -34,6 +34,8 @@ class GUI:
                 messagebox.showerror(getString('MOVIE_NOT_FOUND_TITLE'), getString('MOVIE_NOT_FOUND_MESSAGE'))
             elif (E.message == errors.NO_SIMILAR_MOVIES):
                 messagebox.showerror(getString('NO_SIMILAR_MOVIES_TITLE'), getString('NO_SIMILAR_MOVIES_MESSAGE'))
+            if (E.message == errors.INVALID_INDEX):
+                messagebox.showerror(getString('INVALID_INDEX_TITLE'), getString('INVALID_INDEX_MESSAGE'))
             else:
                 messagebox.showerror(E.error_code, E.message)
 
