@@ -1,3 +1,4 @@
+import sys
 from flask import Flask, request, jsonify
 from models.DataFrame import DataFrame
 from models.ContentBasedFiltering import ContentBasedFiltering
@@ -52,4 +53,13 @@ def getRecommendedMovies():
     errorMessage = getattr(E, 'message', str(E))
     return jsonify({'result': 'failure', 'error': errorMessage}), statusCode
 
-app.run()
+if __name__ == '__main__':
+    port = 5000  
+
+    if len(sys.argv) > 1:
+        try:
+            port = int(sys.argv[1])
+        except ValueError:
+            print("Using default port 5000.")
+
+    app.run(port=port)
