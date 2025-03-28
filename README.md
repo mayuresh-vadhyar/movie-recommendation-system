@@ -58,7 +58,7 @@ Note: `Tkinter` comes pre-installed with Python, so no need to install it separa
 1. **Run the Flask API server**:
 
     ```bash
-    python server.py
+    python server.py 5000
     ```
 
 2. **Available API Endpoints**:
