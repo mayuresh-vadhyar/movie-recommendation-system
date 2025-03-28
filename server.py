@@ -7,6 +7,10 @@ app = Flask(__name__)
 df = DataFrame()
 cbf = ContentBasedFiltering()
 
+@app.route('/')
+def healthCheck():
+    return {"status": "healthy"}, 200
+
 @app.route('/movies/index', methods=['GET'])
 def getMovieIndexByTitle():
   try:
